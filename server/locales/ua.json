@@ -1,0 +1,26 @@
+{
+	"Title": "Exemple de traduction",
+	"Intro": "Bonjour je m'appelle {{name}}, j'ai {{age}} ans.",
+	"Startpage": {
+		"TranslationSections": "Bonjour Monde"
+	},
+	"Aboutpage": {
+		"TranslationSections": "Nous sommes letsboot"
+	},
+	"CABINET": {
+		"brand_name_ph": "Ім'я бренду",
+		"full_address_ph":"Повна адреса",
+		"region_ph": "Оберіть регіон",
+		"logo_btn_caption":"Оберіть лого",
+		"cover_btn_caption":"Оберіть обкладинку",
+		"logo_drop_msg":"Або перетягніть зображення лого",
+		"cover_drop_msg":"Або перетягніть зображення обкладинки",
+		"logo_clear_msg":"Видалити лого",
+		"cover_clear_msg":"Видалити обкладинку"
+	},
+	"FORMS": {
+		"error_required": "Це поле має бути заповненим",
+		"error_email": "Невалідна адреса E-mail",
+		"error_region":"Оберіть Ваш регіон у відповідності до наданного переліку регіонів"
+	}
+}

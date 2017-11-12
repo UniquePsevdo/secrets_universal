@@ -1,0 +1,26 @@
+{
+	"Title": "Translation example",
+	"Intro": "Hello I am {{name}}, I am {{age}} years old.",
+	"Startpage": {
+		"TranslationSections": "Hello World"
+	},
+	"Aboutpage": {
+		"TranslationSections": "We are letsboot"
+	},
+	"CABINET": {
+		"brand_name_ph": "Brand name*",
+		"full_address_ph": "Full address",
+		"region_ph": "Choose your region",
+		"logo_btn_caption":"Select logo",
+		"cover_btn_caption":"Select cover",
+		"logo_drop_msg":"Or drop logo image here",
+		"cover_drop_msg":"Or drop cover image here",
+		"logo_clear_msg":"Clear logo",
+		"cover_clear_msg":"Clear cover"
+	},
+	"FORMS": {
+		"error_required": "This field is required",
+		"error_email": "E-mail adress is invalid",
+		"error_region": "Choose your region from the list"
+	}
+}
