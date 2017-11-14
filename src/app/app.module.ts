@@ -10,7 +10,9 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {CustomTranslateLoader, HttpLoaderFactory} from "./translate-loader";
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { HeaderComponent } from './header/header.component';
 
+//ng generate component componentName --module=app.module
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -22,6 +24,7 @@ export const routes: Routes = [
     declarations: [
         AppComponent,
         HomeComponent,
+        HeaderComponent,
     ],
     imports: [
         HttpClientModule,

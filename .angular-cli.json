@@ -12,6 +12,7 @@
         "favicon.ico"
       ],
       "index": "index.html",
+      "name":"browser",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
@@ -29,14 +30,15 @@
       }
     },
     {
-      "platform": "server",
       "root": "src",
       "outDir": "dist/server",
       "assets": [
         "assets",
         "favicon.ico"
       ],
+      "platform": "server",
       "index": "index.html",
+      "name":"server",
       "main": "main.server.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.server.json",
@@ -78,16 +80,14 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {
-      "spec": false,
-      "inlineStyle": true,
-      "inlineTemplate": true
-    },
-    "directive": {
+    "styleExt": "scss",
+    "class": {
       "spec": false
     },
-    "class": {
+    "component": {
+      "spec": false
+    },
+    "directive": {
       "spec": false
     },
     "guard": {
