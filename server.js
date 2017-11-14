@@ -85,13 +85,17 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
 }));
 
 // ALl regular routes use the Universal engine
-app.get('*', (req, res) => {
-    res.render('index', { req });
+function ngApp(req) {
+    res.render('index', {req});
+}
+
+let data = JSON.parse(readFileSync(`src/assets/locales.json`, 'utf8'));
+
+app.get('/', ngApp);
+data.locales.forEach(route => {
+    app.get(`/${route}`, ngApp);
+    app.get(`/${route}/*`, ngApp);
 });
-
-
-
-
 
 app.use(notFound);
 console.log(process.env.NODE_ENV);

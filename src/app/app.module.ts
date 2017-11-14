@@ -8,9 +8,13 @@ import {TranslateService} from "@ngx-translate/core";
 import {LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings} from 'localize-router';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {CustomTranslateLoader, HttpLoaderFactory} from "./translate-loader";
+import {CustomTranslateLoader, HttpLoaderFactory} from "./common/translate-loader";
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { HeaderComponent } from './header/header.component';
+import { LangSwitcherComponent } from './header/lang-switcher/lang-switcher.component';
+import {MaterialModule} from './common/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 //ng generate component componentName --module=app.module
 
@@ -25,10 +29,13 @@ export const routes: Routes = [
         AppComponent,
         HomeComponent,
         HeaderComponent,
+        LangSwitcherComponent,
     ],
     imports: [
+        BrowserAnimationsModule,
         HttpClientModule,
         BrowserModule.withServerTransition({appId: 'my-app'}),
+        MaterialModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -43,8 +50,7 @@ export const routes: Routes = [
                 deps: [TranslateService, Location, LocalizeRouterSettings, HttpClient]
             },
             alwaysSetPrefix:false
-        }),
-
+        })
     ],
     providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
     bootstrap: [AppComponent]
