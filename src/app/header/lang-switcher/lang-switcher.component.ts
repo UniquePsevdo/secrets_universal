@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./lang-switcher.component.scss']
 })
 export class LangSwitcherComponent implements OnInit {
+    selected = 'option2';
 
     constructor() {
     }

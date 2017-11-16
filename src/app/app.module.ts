@@ -15,7 +15,6 @@ import { LangSwitcherComponent } from './header/lang-switcher/lang-switcher.comp
 import {MaterialModule} from './common/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-
 //ng generate component componentName --module=app.module
 
 export const routes: Routes = [
