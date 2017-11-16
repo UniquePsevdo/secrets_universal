@@ -5,6 +5,7 @@
   },
   "apps": [
     {
+      "name": "browser",
       "root": "src",
       "outDir": "dist/browser",
       "assets": [
@@ -12,7 +13,6 @@
         "favicon.ico"
       ],
       "index": "index.html",
-      "name":"browser",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
@@ -20,7 +20,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -30,6 +30,7 @@
       }
     },
     {
+      "name": "server",
       "root": "src",
       "outDir": "dist/server",
       "assets": [
@@ -38,7 +39,6 @@
       ],
       "platform": "server",
       "index": "index.html",
-      "name":"server",
       "main": "main.server.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.server.json",
