@@ -15,7 +15,7 @@ export class CustomTranslateLoader implements TranslateLoader {
     }
 
     public getTranslation(lang: string): Observable<any> {
-        console.log('getTranslation');
+        console.log('getTranslation', lang);
         return this.http.get(`${environment.apiUrl}/translations?language=${lang}`,
             {
                 headers: new HttpHeaders().set('Accept-Language', lang),
