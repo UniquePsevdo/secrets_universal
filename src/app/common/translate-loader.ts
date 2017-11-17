@@ -27,3 +27,7 @@ export class CustomTranslateLoader implements TranslateLoader {
 export function HttpLoaderFactory(translate: TranslateService, location: Location, settings: LocalizeRouterSettings, http: HttpClient) {
     return new LocalizeRouterHttpLoader(translate, location, settings, http, 'assets/locales.json');
 }
+
+export function defaultLangFunction() {
+    return 'ua';
+}

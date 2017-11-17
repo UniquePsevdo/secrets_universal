@@ -25,7 +25,7 @@ export class LangSwitcherComponent implements OnInit {
 
 
     onLangChange(lang) {
-        let path = this.location.path(false);
+        /*let path = this.location.path(false);
         if (path.charAt(0) !== '/') {
             path = '/' + path;
         }
@@ -47,14 +47,14 @@ export class LangSwitcherComponent implements OnInit {
 
         if(lang!==this.translate.defaultLang && lang!==this.translate.currentLang){
             console.log(0, '/' + lang + path);
-            this.location.go('/' + lang + path);
+            this.location.replaceState('/' + lang + path);
 
         }else if(lang===this.translate.defaultLang && lang!==this.translate.currentLang){
             console.log(1, path);
-            this.location.go(path);
-        }
+            this.location.replaceState(path);
+        }*/
 
-        this.translate.use(lang);
+        this.localize.changeLanguage(lang);
     }
 
     ngOnInit() {

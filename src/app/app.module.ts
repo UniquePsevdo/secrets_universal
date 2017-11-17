@@ -8,7 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings} from 'localize-router';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {CustomTranslateLoader, HttpLoaderFactory} from "./common/translate-loader";
+import {CustomTranslateLoader, HttpLoaderFactory, defaultLangFunction} from "./common/translate-loader";
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { LangSwitcherComponent } from './header/lang-switcher/lang-switcher.component';
@@ -50,7 +50,8 @@ export const routes: Routes = [
                 deps: [TranslateService, Location, LocalizeRouterSettings, HttpClient]
             },
             alwaysSetPrefix:false,
-            useCachedLang: false
+            useCachedLang: false,
+            defaultLangFunction: defaultLangFunction
         })
     ],
     providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
