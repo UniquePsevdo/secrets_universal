@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalizeRouterService} from "localize-router";
-import {NavigationExtras} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-lang-switcher',
@@ -9,9 +10,10 @@ import {TranslateService} from "@ngx-translate/core";
     styleUrls: ['./lang-switcher.component.scss']
 })
 export class LangSwitcherComponent implements OnInit {
-    private selected : string = this.translate.currentLang;
+    private selected: string = this.translate.currentLang;
 
-    constructor(private localize: LocalizeRouterService, private translate: TranslateService){
+    constructor(private localize: LocalizeRouterService, private translate: TranslateService, private router: Router,
+                private location: Location) {
         /*switch(this.translate.currentLang){
             case 'ua':
                 this.selected==='ua';
@@ -22,24 +24,37 @@ export class LangSwitcherComponent implements OnInit {
     }
 
 
+    onLangChange(lang) {
+        let path = this.location.path(false);
+        if (path.charAt(0) !== '/') {
+            path = '/' + path;
+        }
 
-    onLangChange(lang){
-        console.log(lang);
+        let pathArr = path.split('/');
+        pathArr = pathArr.filter((item, index)=>{
+            if(index===1){
+                console.log(item, this.translate.currentLang, this.translate.defaultLang);
+                console.log(item!==this.translate.defaultLang, item===this.translate.currentLang);
+            }
+            if(index===1 && item!==this.translate.defaultLang && item===this.translate.currentLang){
+                return false;
+            }else{
+                return true;
+            }
+        });
 
-        /*interface NavigationExtras {
-            relativeTo?: ActivatedRoute|null
-            queryParams?: Params|null
-            fragment?: string
-            preserveQueryParams?: boolean
-            queryParamsHandling?: QueryParamsHandling|null
-            preserveFragment?: boolean
-            skipLocationChange?: boolean
-            replaceUrl?: boolean
-        }*/
+        path = pathArr.join('/');
 
-       // this.localize.changeLanguage(lang, {skipLocationChange:true, replaceUrl:true}, true);
+        if(lang!==this.translate.defaultLang && lang!==this.translate.currentLang){
+            console.log(0, '/' + lang + path);
+            this.location.go('/' + lang + path);
 
+        }else if(lang===this.translate.defaultLang && lang!==this.translate.currentLang){
+            console.log(1, path);
+            this.location.go(path);
+        }
 
+        this.translate.use(lang);
     }
 
     ngOnInit() {
