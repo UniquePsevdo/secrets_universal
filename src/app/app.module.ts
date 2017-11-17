@@ -19,9 +19,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
-    {path: 'home', component: HomeComponent},
+    {path: 'home', component: HomeComponent}/*,
     {path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule'},
-    {path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule'}
+    {path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule'}*/
 ];
 
 @NgModule({
