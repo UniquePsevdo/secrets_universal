@@ -10,7 +10,7 @@ import {Location} from '@angular/common';
     styleUrls: ['./lang-switcher.component.scss']
 })
 export class LangSwitcherComponent implements OnInit {
-    private selected: string = this.translate.currentLang;
+    selected: string = this.translate.currentLang;
 
     constructor(private localize: LocalizeRouterService, private translate: TranslateService, private router: Router,
                 private location: Location) {
@@ -26,7 +26,6 @@ export class LangSwitcherComponent implements OnInit {
     removeLastHash(url){
         let urlArr = url.split('');
         if(urlArr[urlArr.length-1]==='/'){
-            console.log(urlArr, urlArr.slice(0,urlArr.length-1));
             return urlArr.slice(0,urlArr.length-1).join('');
         }
         return url;

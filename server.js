@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 var cors = require('express-cors');
 const i18n = require("i18n");
 var favicon = require('serve-favicon');
+//require('import-export');
 const {notFound, developmentErrors, productionErrors} = require('./server/handlers/errorHandlers');
 
 i18n.configure({
@@ -85,11 +86,11 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
 }));
 
 // ALl regular routes use the Universal engine
-function ngApp(req) {
+function ngApp(req, res) {
     res.render('index', {req});
 }
 
-let data = JSON.parse(readFileSync(`src/assets/locales.json`, 'utf8'));
+let data = JSON.parse(readFileSync(`./src/assets/locales.json`, 'utf8'));
 
 app.get('/', ngApp);
 data.locales.forEach(route => {

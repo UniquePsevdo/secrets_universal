@@ -26,7 +26,8 @@
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:prerender": "cd dist/browser && http-server",
     "serve:ssr": "node dist/server",
-    "server": "cross-env NODE_ENV=development nodemon server.js"
+    "server": "cross-env NODE_ENV=development nodemon server.js",
+    "preserve:yourproject": "node node_modules/babel-cli/bin/babel.js node_modules/@ngx-translate/core --out-dir node_modules/@ngx-translate/core --presets es2015"
   },
   "private": true,
   "dependencies": {
@@ -45,9 +46,12 @@
     "@nguniversal/express-engine": "^5.0.0-beta.5",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
     "@ngx-translate/core": "^8.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "core-js": "^2.4.1",
     "cross-env": "^5.0.1",
     "hammerjs": "^2.0.8",
+    "import-export": "^1.0.1",
     "localize-router": "^1.0.0-rc.2",
     "localize-router-http-loader": "^1.0.1",
     "node-sass": "^4.6.1",
