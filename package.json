@@ -25,7 +25,7 @@
     "generate:prerender": "cd dist && node prerender",
     "webpack:server:node": "webpack --config webpack.server.node.config.js --progress --colors",
     "webpack:browser": "webpack --config webpack.browser.config.js --prod --progress --colors",
-    "webpack:server": "webpack --config webpack.server.config.js --prod --app 1 --progress --colors --output-hashing=false",
+    "webpack:server": "webpack --config webpack.server.config.js --prod --progress --colors --output-hashing=false",
     "serve:prerender": "cd dist/browser && http-server",
     "serve:ssr": "node dist/server",
     "server-dev": "cross-env NODE_ENV=development nodemon server.js",

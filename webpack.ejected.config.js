@@ -1,38 +1,9 @@
-import {AngularCompilerPlugin} from '@ngtools/webpack';
-module.exports = {
-    entry: {
-        server: './src/app/app.server.module.ts'
-    },
-    resolve: {
-        extensions: ['.ts', '.js']
-    },
-    target: 'node',
-    output: {
-        path: path.join(__dirname, "dist/server"),
-        filename: 'server.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                loader: '@ngtools/webpack',
-                sourcemap: true
-            }
-        ]
-    },
-    plugins: [
-        new AngularCompilerPlugin({
-            tsConfigPath: './src/tsconfig.server.json',
-            entryModule: './src/app/app.server.module#AppServerModule'
-        })
-    ]
-}
-
 const fs = require('fs');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
@@ -91,29 +62,6 @@ const postcssPlugins = function () {
 
 
 module.exports = {
-    entry: {
-        server: './src/app/app.server.module.ts'
-    },
-    target: 'node',
-    output: {
-        path: path.join(__dirname, "dist/server"),
-        filename: 'server.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                loader: '@ngtools/webpack',
-                sourcemap: true
-            }
-        ]
-    },
-    plugins: [
-        new AngularCompilerPlugin({
-            tsConfigPath: './src/tsconfig.server.json',
-            entryModule: './src/app/app.server.module#AppServerModule'
-        })
-    ],
     "resolve": {
         "extensions": [
             ".ts",
@@ -596,7 +544,7 @@ module.exports = {
     },
     "entry": {
         "main": [
-            "./src\\main.server.ts"
+            "./src\\main.ts"
         ],
         "polyfills": [
             "./src\\polyfills.ts"
@@ -606,7 +554,7 @@ module.exports = {
         ]
     },
     "output": {
-        "path": path.join(process.cwd(), "dist\\server"),
+        "path": path.join(process.cwd(), "dist\\browser"),
         "filename": "[name].bundle.js",
         "chunkFilename": "[id].chunk.js",
         "crossOriginLoading": false
@@ -614,10 +562,14 @@ module.exports = {
     "module": {
         "rules": [
             {
+                "test": /\.html$/,
+                "loader": "raw-loader"
+            },
+            {
                 "test": /\.(eot|svg|cur)$/,
                 "loader": "file-loader",
                 "options": {
-                    "name": "[name].[ext]",
+                    "name": "[name].[hash:20].[ext]",
                     "limit": 10000
                 }
             },
@@ -625,7 +577,7 @@ module.exports = {
                 "test": /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
                 "loader": "url-loader",
                 "options": {
-                    "name": "[name].[ext]",
+                    "name": "[name].[hash:20].[ext]",
                     "limit": 10000
                 }
             },
@@ -892,6 +844,34 @@ module.exports = {
             "failOnError": false
         }),
         new NamedLazyChunksWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            "template": "./src\\index.html",
+            "filename": "./index.html",
+            "hash": false,
+            "inject": true,
+            "compile": true,
+            "favicon": false,
+            "minify": false,
+            "cache": true,
+            "showErrors": true,
+            "chunks": "all",
+            "excludeChunks": [],
+            "title": "Webpack App",
+            "xhtml": true,
+            "chunksSortMode": function sort(left, right) {
+                let leftIndex = entryPoints.indexOf(left.names[0]);
+                let rightindex = entryPoints.indexOf(right.names[0]);
+                if (leftIndex > rightindex) {
+                    return 1;
+                }
+                else if (leftIndex < rightindex) {
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }),
         new BaseHrefWebpackPlugin({}),
         new CommonsChunkPlugin({
             "name": [
@@ -928,13 +908,13 @@ module.exports = {
         }),
         new NamedModulesPlugin({}),
         new AngularCompilerPlugin({
-            "mainPath": "main.server.ts",
-            "platform": 'Server',
+            "mainPath": "main.ts",
+            "platform": 0,
             "hostReplacementPaths": {
                 "environments\\environment.ts": "environments\\environment.ts"
             },
             "sourceMap": true,
-            "tsConfigPath": "src\\tsconfig.server.json",
+            "tsConfigPath": "src\\tsconfig.app.json",
             "skipCodeGeneration": true,
             "compilerOptions": {}
         })
