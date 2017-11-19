@@ -583,7 +583,7 @@ module.exports = {
             "rxjs/operators": "F:\\Programming\\secrets_universal\\node_modules\\rxjs\\_esm5\\operators\\index.js"
         },
         "mainFields": [
-            "browser",
+            "server",
             "module",
             "main"
         ]
