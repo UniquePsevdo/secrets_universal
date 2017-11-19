@@ -11,8 +11,8 @@ exports = {
     },
     plugins: [
         new AngularCompilerPlugin({
-            tsConfigPath: './src/tsconfig.server.json',
-            entryModule: './src/app/app.server.module#AppServerModule'
+            tsConfigPath: './tsconfig.json',
+            entryModule: './src/app/app.module#AppModule'
         })
     ]
 }

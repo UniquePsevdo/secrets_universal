@@ -13,7 +13,7 @@ const {notFound, developmentErrors, productionErrors} = require('./server/handle
 
 i18n.configure({
     locales:['ua', 'en'],
-    directory: __dirname + '/locales',
+    directory: __dirname + '/src/assets/locales',
     defaultLocale: 'ua',
 });
 
@@ -43,14 +43,16 @@ app.use('/api/', apiRouter);
 require('zone.js/dist/zone-node');
 require('reflect-metadata');
 let renderModuleFactory = require('@angular/platform-server').renderModuleFactory;
-let enableProdMode = require('@angular/core').enableProdMode;
+let ngCore = require('@angular/core');
+//let enableProdMode = require('@angular/core').enableProdMode;
 
 /*import * as express from 'express';*/
 const join = require('path').join;
 const readFileSync = require('fs').readFileSync;
 
 // Faster server renders w/ Prod mode (dev mode never needed)
-enableProdMode();
+//enableProdMode();
+ngCore.enableProdMode();
 
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
