@@ -1,33 +1,3 @@
-import {AngularCompilerPlugin} from '@ngtools/webpack';
-module.exports = {
-    entry: {
-        server: './src/app/app.server.module.ts'
-    },
-    resolve: {
-        extensions: ['.ts', '.js']
-    },
-    target: 'node',
-    output: {
-        path: path.join(__dirname, "dist/server"),
-        filename: 'server.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                loader: '@ngtools/webpack',
-                sourcemap: true
-            }
-        ]
-    },
-    plugins: [
-        new AngularCompilerPlugin({
-            tsConfigPath: './src/tsconfig.server.json',
-            entryModule: './src/app/app.server.module#AppServerModule'
-        })
-    ]
-}
-
 const fs = require('fs');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -87,12 +57,12 @@ const postcssPlugins = function () {
     ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
 };
 
-
-
-
 module.exports = {
     entry: {
         server: './src/app/app.server.module.ts'
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
     },
     target: 'node',
     output: {
@@ -108,12 +78,6 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new AngularCompilerPlugin({
-            tsConfigPath: './src/tsconfig.server.json',
-            entryModule: './src/app/app.server.module#AppServerModule'
-        })
-    ],
     "resolve": {
         "extensions": [
             ".ts",
@@ -935,6 +899,7 @@ module.exports = {
             },
             "sourceMap": true,
             "tsConfigPath": "src\\tsconfig.server.json",
+            "entryModule": "src\\app\\app.server.module#AppServerModule",
             "skipCodeGeneration": true,
             "compilerOptions": {}
         })
