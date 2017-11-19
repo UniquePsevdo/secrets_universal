@@ -1,3 +1,4 @@
+/*
 import {AngularCompilerPlugin} from '@ngtools/webpack';
 exports = {
     module: {
@@ -15,4 +16,4 @@ exports = {
             entryModule: './src/app/app.server.module#AppServerModule'
         })
     ]
-}
+}*/
