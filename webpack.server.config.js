@@ -59,11 +59,11 @@ const postcssPlugins = function () {
 
 module.exports = {
     "entry": {
-        server: path.join(process.cwd(), "src\\app\\app.server.module.ts")
+        server: path.join(process.cwd(), "src","app","app.server.module.ts")
     },
     "target": 'node',
     "output": {
-        path: path.join(process.cwd(), "dist\\server"), //path.join(process.cwd(), 'src',
+        path: path.join(process.cwd(), "dist","server"), //path.join(process.cwd(), 'src',
         filename: 'server.js'
     },
     "module": {
@@ -567,7 +567,7 @@ module.exports = {
         ]
     },
     "output": {
-        "path": path.join(process.cwd(), "dist\\server"),
+        "path": path.join(process.cwd(), "dist","server"),
         "filename": "[name].bundle.js",
         "chunkFilename": "[id].chunk.js",
         "crossOriginLoading": false
@@ -592,7 +592,7 @@ module.exports = {
             },
             {
                 "exclude": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.css$/,
                 "use": [
@@ -615,7 +615,7 @@ module.exports = {
             },
             {
                 "exclude": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.scss$|\.sass$/,
                 "use": [
@@ -646,7 +646,7 @@ module.exports = {
             },
             {
                 "exclude": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.less$/,
                 "use": [
@@ -675,7 +675,7 @@ module.exports = {
             },
             {
                 "exclude": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.styl$/,
                 "use": [
@@ -705,7 +705,7 @@ module.exports = {
             },
             {
                 "include": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.css$/,
                 "use": [
@@ -728,7 +728,7 @@ module.exports = {
             },
             {
                 "include": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.scss$|\.sass$/,
                 "use": [
@@ -759,7 +759,7 @@ module.exports = {
             },
             {
                 "include": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.less$/,
                 "use": [
@@ -788,7 +788,7 @@ module.exports = {
             },
             {
                 "include": [
-                    path.join(process.cwd(), "src\\styles.scss")
+                    path.join(process.cwd(), "src","styles.scss")
                 ],
                 "test": /\.styl$/,
                 "use": [
