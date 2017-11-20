@@ -58,18 +58,15 @@ const postcssPlugins = function () {
 };
 
 module.exports = {
-    entry: {
-        server: './src/app/app.server.module.ts'
+    "entry": {
+        server: path.join(process.cwd(), "src\\app\\app.server.module.ts")
     },
-    resolve: {
-        extensions: ['.ts', '.js']
-    },
-    target: 'node',
-    output: {
-        path: path.join(__dirname, "dist/server"),
+    "target": 'node',
+    "output": {
+        path: path.join(process.cwd(), "dist\\server"), //path.join(process.cwd(), 'src',
         filename: 'server.js'
     },
-    module: {
+    "module": {
         rules: [
             {
                 test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
