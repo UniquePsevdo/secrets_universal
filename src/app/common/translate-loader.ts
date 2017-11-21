@@ -3,9 +3,9 @@ import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
-/*import {LocalizeRouterHttpLoader} from "localize-router-http-loader";
-import {LocalizeRouterSettings} from "localize-router";
-import {Location} from '@angular/common';*/
+//import {LocalizeRouterHttpLoader} from "localize-router-http-loader";
+//import {LocalizeRouterSettings} from "localize-router";
+//import {Location} from '@angular/common';
 
 // implements TranslateLoader
 @Injectable()

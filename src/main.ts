@@ -10,9 +10,7 @@ if (environment.production) {
     try {
         enableProdMode();
     } catch (err) {
-        console.log(err);
     }
-
 }
 
 document.addEventListener('DOMContentLoaded', () => {

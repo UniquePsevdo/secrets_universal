@@ -53,7 +53,7 @@ export const routes: Routes = [
             alwaysSetPrefix:false,
             useCachedLang: false,
             defaultLangFunction: defaultLangFunction
-        })
+        }),
     ],
     providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
     bootstrap: [AppComponent]

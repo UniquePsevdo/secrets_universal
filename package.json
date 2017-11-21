@@ -28,9 +28,9 @@
     "webpack:server": "webpack --config webpack.server.config.js -p --progress",
     "serve:prerender": "cd dist/browser && http-server",
     "serve:ssr": "node dist/server",
+    "webpack:ts-node": "webpack --config webpack.ts-js.server.config.js --progress --colors",
     "server-dev": "cross-env NODE_ENV=development nodemon server.js",
-    "server-prod": "cross-env NODE_ENV=production nodemon server.js",
-    "preserve:yourproject": "node node_modules/babel-cli/bin/babel.js node_modules/@ngx-translate/core --out-dir node_modules/@ngx-translate/core --presets es2015"
+    "server-prod": "cross-env NODE_ENV=production nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -66,6 +66,8 @@
     "@angular/compiler-cli": "5.0.1",
     "@angular/language-service": "^5.0.0",
     "@types/node": "^8.0.30",
+    "angular2-template-loader": "^0.6.2",
+    "awesome-typescript-loader": "^3.4.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
@@ -73,6 +75,7 @@
     "ejs": "^2.5.6",
     "express": "^4.15.3",
     "express-cors": "0.0.3",
+    "html-loader": "^0.5.1",
     "http-server": "^0.10.0",
     "i18n": "^0.8.3",
     "jwt-simple": "^0.5.1",
@@ -87,6 +90,8 @@
     "sass-loader": "^6.0.6",
     "serve-favicon": "^2.4.5",
     "ts-loader": "^2.3.7",
-    "typescript": "~2.4.2"
+    "typescript": "~2.4.2",
+    "webpack-node-externals": "1.6.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }
