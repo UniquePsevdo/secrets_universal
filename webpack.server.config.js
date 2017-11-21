@@ -1,45 +1,73 @@
-// Work around for https://github.com/angular/angular-cli/issues/7200
-
-const path = require('path');
-const webpack = require('webpack');
-
+import {AngularCompilerPlugin} from '@ngtools/webpack';
 module.exports = {
     entry: {
-        // This is our Express server for Dynamic universal
-        server: './server.js',
-        // This is an example of Static prerendering (generative)
-        prerender: './prerender.ts'
+        server: './src/app/app.server.module.ts'
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
     },
     target: 'node',
-    resolve: {extensions: ['.ts', '.js']},
-    // Make sure we include all node_modules etc
-    externals: [/(node_modules|main\..*\.js)/,],
     output: {
-        // Puts the output at the root of the dist folder
-        path: path.join(__dirname, 'dist'),
-        filename: '[name].js'
+        path: path.join(__dirname, "dist/server"),
+        filename: 'server.js'
     },
     module: {
         rules: [
-            {test: /\.ts$/, loader: 'ts-loader'}
+            {
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                loader: '@ngtools/webpack',
+                sourcemap: true
+            }
         ]
     },
     plugins: [
-        new webpack.ContextReplacementPlugin(
-            // fixes WARNING Critical dependency: the request of a dependency is an expression
-            /(.+)?angular(\\|\/)core(.+)?/,
-            path.join(__dirname, 'src'), // location of your src
-            {} // a map of your routes
-        ),
-        new webpack.ContextReplacementPlugin(
-            // fixes WARNING Critical dependency: the request of a dependency is an expression
-            /(.+)?express(\\|\/)(.+)?/,
-            path.join(__dirname, 'src'),
-            {}
-        ),new webpack.DefinePlugin({
-            'typeof window': "\"object\""
-        }),
-
+        new AngularCompilerPlugin({
+            tsConfigPath: './src/tsconfig.server.json',
+            entryModule: './src/app/app.server.module#AppServerModule'
+        })
     ]
 }
-  
+
+/*
+const ngtools = require('@ngtools/webpack');
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextWebpackPlugin = require("extract-text-webpack-plugin");
+module.exports = {
+    entry: {
+        server: './src/app/app.server.module.ts'
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
+    target: 'node',
+    output: {
+        path: path.join(__dirname, "dist/server"),
+        filename: 'server.js'
+    },
+    plugins: [
+        new ngtools.AotPlugin({
+            tsConfigPath: './tsconfig.json'
+        })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.(scss|html|png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                use: 'raw-loader'
+            },
+            { test: /\.ts$/,  loader: require.resolve('@ngtools/webpack') },
+            {
+                test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url?limit=512&&name=[path][name].[ext]?[hash]'
+            },
+            { test: /\.scss$/, use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "sass-loader" // compiles Sass to CSS
+            }] }
+        ]
+    }
+}*/

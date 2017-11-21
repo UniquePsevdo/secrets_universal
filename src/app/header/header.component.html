@@ -1,8 +1,10 @@
 <div class="container">
-    <div>
-        <p>
-            header works!
-        </p>
+    <div [innerHTML]="'CABINET.brand_name_ph' | translate">
     </div>
+    <!--<div>
+        <p>
+            {{'CABINET.brand_name_ph' | translate}}
+        </p>
+    </div>-->
     <app-lang-switcher></app-lang-switcher>
 </div>

@@ -23,38 +23,48 @@ export class LangSwitcherComponent implements OnInit {
         }*/
     }
 
+    removeLastHash(url){
+        let urlArr = url.split('');
+        if(urlArr[urlArr.length-1]==='/'){
+            return urlArr.slice(0,urlArr.length-1).join('');
+        }
+        return url;
+    }
+
 
     onLangChange(lang) {
-        /*let path = this.location.path(false);
+        let path = this.location.path(false);       //can be changed
         if (path.charAt(0) !== '/') {
             path = '/' + path;
         }
-
         let pathArr = path.split('/');
         pathArr = pathArr.filter((item, index)=>{
-            if(index===1){
-                console.log(item, this.translate.currentLang, this.translate.defaultLang);
-                console.log(item!==this.translate.defaultLang, item===this.translate.currentLang);
-            }
             if(index===1 && item!==this.translate.defaultLang && item===this.translate.currentLang){
                 return false;
             }else{
                 return true;
             }
         });
-
         path = pathArr.join('/');
 
         if(lang!==this.translate.defaultLang && lang!==this.translate.currentLang){
-            console.log(0, '/' + lang + path);
-            this.location.replaceState('/' + lang + path);
+            //this.location.replaceState('/' + lang + path);
+            this.router.navigateByUrl(this.removeLastHash('/' + lang + path), {replaceUrl: true, skipLocationChange: false}).
+            then((bool)=>{
+                this.localize.changeLanguage(lang, {}, true);
+            }, ((reason)=>{
+                console.log('reason: ' + reason);
+            }));
 
         }else if(lang===this.translate.defaultLang && lang!==this.translate.currentLang){
-            console.log(1, path);
-            this.location.replaceState(path);
-        }*/
-
-        this.localize.changeLanguage(lang);
+            //this.location.replaceState(path);
+            this.router.navigateByUrl(this.removeLastHash(path), {replaceUrl: true, skipLocationChange: false}).
+            then((bool)=>{
+                this.localize.changeLanguage(lang, {}, true);
+            }, ((reason)=>{
+                console.log('reason: ' + reason);
+            }));
+        }
     }
 
     ngOnInit() {

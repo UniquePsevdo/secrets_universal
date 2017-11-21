@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 var cors = require('express-cors');
 const i18n = require("i18n");
 var favicon = require('serve-favicon');
+//require('import-export');
 const {notFound, developmentErrors, productionErrors} = require('./server/handlers/errorHandlers');
 const AppServerModule = require('./src/app/app.server.module.ts').AppServerModule;
 
@@ -50,7 +51,8 @@ const join = require('path').join;
 const readFileSync = require('fs').readFileSync;
 
 // Faster server renders w/ Prod mode (dev mode never needed)
-enableProdMode();
+//enableProdMode();
+ngCore.enableProdMode();
 
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
@@ -90,7 +92,7 @@ function ngApp(req, res) {
     res.render('index', {req});
 }
 
-let data = JSON.parse(readFileSync(`src/assets/locales.json`, 'utf8'));
+let data = JSON.parse(readFileSync(`./src/assets/locales.json`, 'utf8'));
 
 app.get('/', ngApp);
 data.locales.forEach(route => {

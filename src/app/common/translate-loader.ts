@@ -11,7 +11,7 @@ import {environment} from "../../environments/environment";
 @Injectable()
 export class CustomTranslateLoader implements TranslateLoader {
 
-    constructor(public http: HttpClient) {
+    constructor(public http: HttpClient ) {
     }
 
     public getTranslation(lang: string): Observable<any> {
@@ -28,6 +28,6 @@ export class CustomTranslateLoader implements TranslateLoader {
     return new LocalizeRouterHttpLoader(translate, location, settings, http, 'assets/locales.json');
 }*/
 
-export function defaultLangFunction() {
+export function defaultLangFunction(){
     return 'ua';
 }
