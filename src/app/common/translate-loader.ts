@@ -3,9 +3,9 @@ import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
-import {LocalizeRouterHttpLoader} from "localize-router-http-loader";
-import {LocalizeRouterSettings} from "localize-router";
-import {Location} from '@angular/common';
+//import {LocalizeRouterHttpLoader} from "localize-router-http-loader";
+//import {LocalizeRouterSettings} from "localize-router";
+//import {Location} from '@angular/common';
 
 // implements TranslateLoader
 @Injectable()
@@ -24,9 +24,9 @@ export class CustomTranslateLoader implements TranslateLoader {
     }
 }
 
-export function HttpLoaderFactory(translate: TranslateService, location: Location, settings: LocalizeRouterSettings, http: HttpClient) {
+/*export function HttpLoaderFactory(translate: TranslateService, location: Location, settings: LocalizeRouterSettings, http: HttpClient) {
     return new LocalizeRouterHttpLoader(translate, location, settings, http, 'assets/locales.json');
-}
+}*/
 
 export function defaultLangFunction() {
     return 'ua';

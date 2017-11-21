@@ -9,6 +9,7 @@ var cors = require('express-cors');
 const i18n = require("i18n");
 var favicon = require('serve-favicon');
 const {notFound, developmentErrors, productionErrors} = require('./server/handlers/errorHandlers');
+const AppServerModule = require('./src/app/app.server.module.ts').AppServerModule;
 
 i18n.configure({
     locales:['ua', 'en'],
@@ -41,7 +42,7 @@ app.use('/api/', apiRouter);
 
 require('zone.js/dist/zone-node');
 require('reflect-metadata');
-let renderModuleFactory = require('@angular/platform-server').renderModuleFactory;
+let renderModule = require('@angular/platform-server').renderModule;
 let enableProdMode = require('@angular/core').enableProdMode;
 
 /*import * as express from 'express';*/
@@ -57,7 +58,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const {LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
 
 // Express Engine
 const ngExpressEngine = require('@nguniversal/express-engine').ngExpressEngine;
@@ -66,7 +67,7 @@ const provideModuleMap = require('@nguniversal/module-map-ngfactory-loader').pro
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
-    bootstrap: AppServerModuleNgFactory,
+    bootstrap: AppServerModule,
     providers: [
         provideModuleMap(LAZY_MODULE_MAP)
     ]
@@ -85,7 +86,7 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
 }));
 
 // ALl regular routes use the Universal engine
-function ngApp(req) {
+function ngApp(req, res) {
     res.render('index', {req});
 }
 

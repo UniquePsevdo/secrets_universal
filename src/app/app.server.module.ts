@@ -4,13 +4,14 @@ import {ModuleMapLoaderModule} from '@nguniversal/module-map-ngfactory-loader';
 
 import {AppModule} from './app.module';
 import {AppComponent} from './app.component';
-import {LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings} from "localize-router";
+import {LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader} from "localize-router";
 import {RouterModule, Routes} from "@angular/router";
 import * as fs from "fs";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Location} from '@angular/common';
 import {Observable} from "rxjs/Observable";
 import {HomeComponent} from "./home/home.component";
+import {defaultLangFunction} from "./common/translate-loader";
 
 
 export class LocalizeUniversalLoader extends LocalizeParser {
@@ -68,11 +69,15 @@ export const routes: Routes = [
         }),
         RouterModule.forRoot(routes),
         LocalizeRouterModule.forRoot(routes, {
-            parser:{
+            parser: {
                 provide: LocalizeParser,
-                useFactory: localizeLoaderFactory,
-                deps: [TranslateService, Location]
-            }
+                useFactory: (translate, location, settings) =>
+                    new ManualParserLoader(translate, location, settings, ['ua','en'], 'ROUTES'),
+                deps: [TranslateService, Location, LocalizeRouterSettings]
+            },
+            alwaysSetPrefix:false,
+            useCachedLang: false,
+            defaultLangFunction: defaultLangFunction
         }),
         AppModule,
         ServerModule,
