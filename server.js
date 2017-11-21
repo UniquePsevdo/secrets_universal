@@ -12,7 +12,7 @@ const {notFound, developmentErrors, productionErrors} = require('./server/handle
 
 i18n.configure({
     locales:['ua', 'en'],
-    directory: __dirname + '/locales',
+    directory: __dirname + '/src/assets/locales',
     defaultLocale: 'ua',
 });
 
