@@ -1,5 +1,4 @@
 const fs = require('fs');
-const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
@@ -9,9 +8,8 @@ const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
 const customProperties = require('postcss-custom-properties');
-const nodeExternals = require('webpack-node-externals');
 
-const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, NamedModulesPlugin, DefinePlugin, ContextReplacementPlugin } = require('webpack');
+const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, NamedModulesPlugin } = require('webpack');
 const { NamedLazyChunksWebpackPlugin, BaseHrefWebpackPlugin } = require('@angular/cli/plugins/webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
@@ -546,20 +544,21 @@ module.exports = {
     },
     "entry": {
         "main": [
-            "./src/polyfills.server.ts","./src/main.server.ts"
+            "./src/main.ts"
+        ],
+        "polyfills": [
+            "./src/polyfills.ts"
+        ],
+        "styles": [
+            "./src/styles.scss"
         ]
     },
     "output": {
-        "path": path.join(process.cwd(), "dist/server"),
+        "path": path.join(process.cwd(), "dist/browser"),
         "filename": "[name].bundle.js",
         "chunkFilename": "[id].chunk.js",
         "crossOriginLoading": false
     },
-    /*"externals": [nodeExternals({
-        whitelist: [
-            /^@angular\/core/,
-        ]
-    })],*/
     "module": {
         "rules": [
             {
@@ -859,7 +858,7 @@ module.exports = {
             "excludeChunks": [],
             "title": "Webpack App",
             "xhtml": true,
-            /*"chunksSortMode": function sort(left, right) {
+            "chunksSortMode": function sort(left, right) {
                 let leftIndex = entryPoints.indexOf(left.names[0]);
                 let rightindex = entryPoints.indexOf(right.names[0]);
                 if (leftIndex > rightindex) {
@@ -871,10 +870,10 @@ module.exports = {
                 else {
                     return 0;
                 }
-            }*/
+            }
         }),
         new BaseHrefWebpackPlugin({}),
-        /*new CommonsChunkPlugin({
+        new CommonsChunkPlugin({
             "name": [
                 "inline"
             ],
@@ -893,7 +892,7 @@ module.exports = {
             "chunks": [
                 "main"
             ]
-        }),*/
+        }),
         new SourceMapDevToolPlugin({
             "filename": "[file].map[query]",
             "moduleFilenameTemplate": "[resource-path]",
@@ -908,26 +907,14 @@ module.exports = {
             "async": "common"
         }),
         new NamedModulesPlugin({}),
-        new ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/, path.join(process.cwd(), 'src'),
-            {}
-        ),
-        new DefinePlugin({
-            window: undefined,
-            document: undefined,
-            location: JSON.stringify({
-                protocol: 'https', // `http` or `https`
-                host: `your host`,
-            })
-        }),
         new AngularCompilerPlugin({
             "mainPath": "main.ts",
-            "platform": 1,
+            "platform": 0,
             "hostReplacementPaths": {
                 "environments/environment.ts": "environments/environment.ts"
             },
             "sourceMap": true,
-            "tsConfigPath": "src/tsconfig.server.json",
+            "tsConfigPath": "src/tsconfig.app.json",
             "skipCodeGeneration": true,
             "compilerOptions": {}
         })

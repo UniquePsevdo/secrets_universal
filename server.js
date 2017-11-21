@@ -8,9 +8,9 @@ const mongoose = require('mongoose');
 var cors = require('express-cors');
 const i18n = require("i18n");
 var favicon = require('serve-favicon');
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 //require('import-export');
 const {notFound, developmentErrors, productionErrors} = require('./server/handlers/errorHandlers');
-const AppServerModule = require('./src/app/app.server.module.ts').AppServerModule;
 
 i18n.configure({
     locales:['ua', 'en'],
@@ -39,28 +39,29 @@ app.use(bodyParser.json({type: '*/*'}));
 
 app.use('/api/', apiRouter);
 
+const domino = require('domino');
+const fs = require('fs');
+const path = require('path');
+const DIST_FOLDER = path.join(process.cwd(), 'dist');
+// Our index.html we'll use as our template
+const template = fs.readFileSync(path.join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const win = domino.createWindow(template);
+global['window'] = win;
+global['document'] = win.document;
+global["XMLHttpRequest"] = XMLHttpRequest;
 
-
-require('zone.js/dist/zone-node');
+/*require('zone.js/dist/zone-node');
 require('reflect-metadata');
-let renderModule = require('@angular/platform-server').renderModule;
+require('rxjs/Rx');*/
+//let renderModule = require('@angular/platform-server').renderModule;
 let enableProdMode = require('@angular/core').enableProdMode;
 
-/*import * as express from 'express';*/
-const join = require('path').join;
-const readFileSync = require('fs').readFileSync;
-
 // Faster server renders w/ Prod mode (dev mode never needed)
-//enableProdMode();
-ngCore.enableProdMode();
-
-const DIST_FOLDER = join(process.cwd(), 'dist');
-
-// Our index.html we'll use as our template
-const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+enableProdMode();
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const {LAZY_MODULE_MAP, AppServerModule } = require('./dist/server/main.bundle');
+console.log(AppServerModule, 'AppServerModule');
 
 // Express Engine
 const ngExpressEngine = require('@nguniversal/express-engine').ngExpressEngine;
@@ -76,14 +77,14 @@ app.engine('html', ngExpressEngine({
 }));
 
 app.set('view engine', 'html');
-app.set('views', join(DIST_FOLDER, 'browser'));
+app.set('views', path.join(DIST_FOLDER, 'browser'));
 
 /* - Example Express Rest API endpoints -
   app.get('/api/**', (req, res) => { });
 */
 
 // Server static files from /browser
-app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
+app.get('*.*', express.static(path.join(DIST_FOLDER, 'browser'), {
     maxAge: '1y'
 }));
 
@@ -92,7 +93,7 @@ function ngApp(req, res) {
     res.render('index', {req});
 }
 
-let data = JSON.parse(readFileSync(`./src/assets/locales.json`, 'utf8'));
+let data = JSON.parse(fs.readFileSync(`./src/assets/locales.json`, 'utf8'));
 
 app.get('/', ngApp);
 data.locales.forEach(route => {
