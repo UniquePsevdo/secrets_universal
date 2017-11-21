@@ -39,15 +39,15 @@ app.use(bodyParser.json({type: '*/*'}));
 
 app.use('/api/', apiRouter);
 
-const domino = require('domino');
+//const domino = require('domino');
 const fs = require('fs');
 const path = require('path');
 const DIST_FOLDER = path.join(process.cwd(), 'dist');
 // Our index.html we'll use as our template
-const template = fs.readFileSync(path.join(DIST_FOLDER, 'browser', 'index.html')).toString();
-const win = domino.createWindow(template);
-global['window'] = win;
-global['document'] = win.document;
+const template = fs.readFileSync(path.join(process.cwd(), 'dist', 'browser', 'index.html')).toString();
+//const win = domino.createWindow(template);
+global['window'] = undefined;
+global['document'] = undefined;
 global["XMLHttpRequest"] = XMLHttpRequest;
 
 /*require('zone.js/dist/zone-node');
@@ -60,8 +60,10 @@ let enableProdMode = require('@angular/core').enableProdMode;
 enableProdMode();
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {LAZY_MODULE_MAP, AppServerModule } = require('./dist/server/main.bundle');
-console.log(AppServerModule, 'AppServerModule');
+var AppServerModule = require(path.join(process.cwd(), 'dist', 'server','main.bundle.js')).AppServerModule;
+console.log('AppServerModule', AppServerModule);
+//const AppServerModule = bundle["AppServerModule"];
+//const LAZY_MODULE_MAP = bundle["LAZY_MODULE_MAP"];
 
 // Express Engine
 const ngExpressEngine = require('@nguniversal/express-engine').ngExpressEngine;
