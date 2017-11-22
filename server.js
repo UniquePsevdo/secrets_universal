@@ -9,8 +9,12 @@ var cors = require('express-cors');
 const i18n = require("i18n");
 var favicon = require('serve-favicon');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+global["XMLHttpRequest"] = XMLHttpRequest;
+require('zone.js/dist/zone-node');
+
 //require('import-export');
 const {notFound, developmentErrors, productionErrors} = require('./server/handlers/errorHandlers');
+
 
 i18n.configure({
     locales:['ua', 'en'],
@@ -48,15 +52,15 @@ const template = fs.readFileSync(path.join(process.cwd(), 'dist', 'browser', 'in
 const win = domino.createWindow(template);
 global['window'] = domino.createWindow(win);
 global['document'] = undefined;
-global["XMLHttpRequest"] = XMLHttpRequest;
-require('zone.js/dist/zone-node');
+
+
 
 //let renderModule = require('@angular/platform-server').renderModule;
 let enableProdMode = require('@angular/core').enableProdMode;
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
-require('zone.js/dist/zone');
+
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const {AppServerModule, LAZY_MODULE_MAP} = require(path.join(process.cwd(), 'dist', 'server','main.bundle.js'));
