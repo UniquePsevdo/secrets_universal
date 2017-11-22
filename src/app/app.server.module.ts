@@ -12,6 +12,7 @@ import {Location} from '@angular/common';
 import {Observable} from "rxjs/Observable";
 import {HomeComponent} from "./home/home.component";
 import {defaultLangFunction} from "./common/translate-loader";
+require('../polyfills.server');
 
 export class LocalizeUniversalLoader extends LocalizeParser {
     /**

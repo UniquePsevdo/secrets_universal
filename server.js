@@ -45,14 +45,11 @@ const path = require('path');
 const DIST_FOLDER = path.join(process.cwd(), 'dist');
 // Our index.html we'll use as our template
 const template = fs.readFileSync(path.join(process.cwd(), 'dist', 'browser', 'index.html')).toString();
-//const win = domino.createWindow(template);
-global['window'] = domino.createWindow(template);
+const win = domino.createWindow(template);
+global['window'] = domino.createWindow(win);
 global['document'] = undefined;
 global["XMLHttpRequest"] = XMLHttpRequest;
 
-/*require('zone.js/dist/zone-node');
-require('reflect-metadata');
-require('rxjs/Rx');*/
 //let renderModule = require('@angular/platform-server').renderModule;
 let enableProdMode = require('@angular/core').enableProdMode;
 
@@ -95,7 +92,7 @@ function ngApp(req, res) {
     res.render('index', {req});
 }
 
-let data = JSON.parse(fs.readFileSync(`./src/assets/locales.json`, 'utf8'));
+let data = JSON.parse(fs.readFileSync('./src/assets/locales.json', 'utf8'));
 
 app.get('/', ngApp);
 data.locales.forEach(route => {
