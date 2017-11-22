@@ -39,14 +39,14 @@ app.use(bodyParser.json({type: '*/*'}));
 
 app.use('/api/', apiRouter);
 
-//const domino = require('domino');
+const domino = require('domino');
 const fs = require('fs');
 const path = require('path');
 const DIST_FOLDER = path.join(process.cwd(), 'dist');
 // Our index.html we'll use as our template
 const template = fs.readFileSync(path.join(process.cwd(), 'dist', 'browser', 'index.html')).toString();
 //const win = domino.createWindow(template);
-global['window'] = undefined;
+global['window'] = domino.createWindow(template);
 global['document'] = undefined;
 global["XMLHttpRequest"] = XMLHttpRequest;
 
@@ -60,7 +60,7 @@ let enableProdMode = require('@angular/core').enableProdMode;
 enableProdMode();
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-var AppServerModule = require(path.join(process.cwd(), 'dist', 'server','main.bundle.js')).AppServerModule;
+const {AppServerModule, LAZY_MODULE_MAP} = require(path.join(process.cwd(), 'dist', 'server','main.bundle.js'));
 console.log('AppServerModule', AppServerModule);
 //const AppServerModule = bundle["AppServerModule"];
 //const LAZY_MODULE_MAP = bundle["LAZY_MODULE_MAP"];
