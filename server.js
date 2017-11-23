@@ -51,7 +51,7 @@ const DIST_FOLDER = path.join(process.cwd(), 'dist');
 const template = fs.readFileSync(path.join(process.cwd(), 'dist', 'browser', 'index.html')).toString();
 const win = domino.createWindow(template);
 global['window'] = domino.createWindow(win);
-global['document'] = undefined;
+//global['document'] = undefined;
 
 
 

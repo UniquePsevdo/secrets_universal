@@ -547,7 +547,7 @@ module.exports = {
     },
     "entry": {
         "main": [
-            "./src/main.server.ts" ,"./src/polyfills.server.ts"
+            "./src/main.server.ts", "./src/vendor.server.ts","./src/polyfills.server.ts",
         ]
     },
     "output": {
