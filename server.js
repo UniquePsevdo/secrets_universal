@@ -35,7 +35,7 @@ app.use(favicon(__dirname + '/dist/browser/favicon.ico'));
 /*app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');*/
 
-var whitelist = ['http://localhost:3090'];
+var whitelist = ['http://localhost:3090', 'http://localhost:4000', 'http://localhost:8000'];
 app.use(cors({
     allowedOrigins: whitelist
 }))

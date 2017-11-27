@@ -26,7 +26,7 @@ app.use(i18n.init);
 /*app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');*/
 
-var whitelist = ['http://localhost:4200'];
+var whitelist = ['http://localhost:4200', 'http://localhost:4000', 'http://localhost:8000'];
 var corsOptions = {
 	origin: function (origin, callback) {
 		if (whitelist.indexOf(origin) !== -1) {

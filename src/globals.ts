@@ -3,9 +3,9 @@ import * as common from '@angular/common';
 import * as compiler from '@angular/compiler';
 import * as browser from '@angular/platform-browser';
 import * as browserd from '@angular/platform-browser-dynamic';
-import {isDevMode} from "@angular/core";
+import {environment} from "./environments/environment";
 
-if (isDevMode()) {
+if (!environment.production) {
     window['@angular/core'] = core;
     window['@angular/common'] = common;
     window['@angular/compiler'] = compiler;
